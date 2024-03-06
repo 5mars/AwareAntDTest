@@ -1,0 +1,13 @@
+.login-card {
+    background: rgba( 255, 255, 255, 0.35 );
+    /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
+    backdrop-filter: blur( 14.5px );
+    -webkit-backdrop-filter: blur( 14.5px );
+    border-radius: 10px;
+}
+
+.gradient-background {
+    height: 100vh;
+    background-color: #f4f4f4;
+    /* background-image: linear-gradient(to right top, #333333, #42425b, #4a5488, #4467b8, #127deb); */
+}
