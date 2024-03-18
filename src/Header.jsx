@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Drawer, Layout, Menu, theme, Button, App } from 'antd';
 import {MenuOutlined } from '@ant-design/icons';
+
 const headerItems = ['1', '2', '3'].map((key) => ({
     key,
-    label: `nav ${key}`,
+    label: <Link to={`/${key}`}>Nav {key}</Link>,
   }));
 
 const { Header } = Layout;
@@ -39,5 +41,5 @@ const AppHeader = ({isMobile, openDrawer}) => {
       </Header>
     );
 }
- 
+
 export default AppHeader;

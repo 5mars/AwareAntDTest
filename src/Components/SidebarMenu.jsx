@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext} from "react";
-import { Menu, Button, Typography, Dropdown, Flex, message, Modal, Input, Tooltip, Form } from 'antd';
+import { Link } from 'react-router-dom';
+import { Menu, Button, Typography, Dropdown, Flex, message, Modal, Input, Tooltip, Form, Switch, theme } from 'antd';
 import { 
     PlusCircleOutlined, 
     AimOutlined, 
@@ -10,7 +11,11 @@ import {
     EllipsisOutlined, 
     EditOutlined, 
     DeleteOutlined, 
-    ExclamationCircleFilled 
+    ExclamationCircleFilled,
+    HomeFilled,
+    HomeOutlined,
+    SunOutlined,
+    MoonFilled, 
 } from '@ant-design/icons';
 import { MobileContext } from "../App/App.jsx";
 
@@ -18,11 +23,10 @@ import { MobileContext } from "../App/App.jsx";
 function SidebarMenu({ closeDrawer }) {
     // ======================================== UseStates, Func & Misc. Consts ========================================
     const {isMobile, setDrawerOpen} = useContext(MobileContext);
-
     const [hoveredKey, setHoveredKey] = useState(null);
-    
     const [edit, setEdit] = useState(false);
     const [missionName, setMissionName] = useState("Mission");
+
     // const [missionDescription, setMissionDescription] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
     const [editingMissionKey, setEditingMissionKey] = useState(null);
@@ -155,11 +159,11 @@ const handleDeleteClick = (key) => {
         ]
     }
 // ======================================== Menu items functions and logic ========================================
-const getItem = (label, key, icon, children, mission, isParent = false, isChild = false, parentKey = null) => {
+const getItem = (label, key, icon, children, mission, isParent = false, isChild = false, haveLink) => {
         const ItemLabel = () => {
             return (
                 <Flex align="center" justify="space-between">
-                    {label}
+                    {!mission ? <Link to={`/${label.toLowerCase()}`}>{label}</Link> : <Link to={`/missions/${key}`}>{label}</Link>}
                     {isParent && (isMobile || hoveredKey === key) && <Button type="text" icon={<PlusCircleOutlined/>} onClick={handleAddClick}/>}
                     {isChild && (isMobile || hoveredKey === key) &&
                         <Dropdown menu={dropdownItems} trigger={["click"]}>
@@ -187,7 +191,7 @@ const getItem = (label, key, icon, children, mission, isParent = false, isChild 
                 }
                 console.log(`Mouse left item: ${key}`);
             },
-            dropdown: mission && { //Create the mini dropdown menu for each mission
+            dropdown: mission ? { //Create the mini dropdown menu for each mission
                 items: [
                     {
                     label: 'Edit',
@@ -203,13 +207,14 @@ const getItem = (label, key, icon, children, mission, isParent = false, isChild 
                     onClick: () => handleDeleteClick(mission.key), // Pass mission key directly
                   },
                 ],
-              },
+              } : undefined,
         }
     }
 
     const items = [
+        getItem("Home", "0", <HomeOutlined />, null, false, false, false, true),
         getItem('Missions', '1', <AimOutlined />, 
-        missions.map((mission) => getItem(mission.name, `1-${mission.key}`, <AimOutlined />, null, mission, true)), 
+        missions.map((mission) => getItem(mission.name, `1-${mission.key}`, <AimOutlined />, null, mission, false)), 
         true
     ),
         getItem('Team', '2', <TeamOutlined />, [
@@ -245,11 +250,16 @@ const getItem = (label, key, icon, children, mission, isParent = false, isChild 
     return (
         <>
             {contextHolder}
-            <Menu mode="inline" items={items}/>
-            <EditModal/>
-            <div>
-                Hovered key: {hoveredKey}
-            </div>
+                <Menu mode="inline" items={items}/>
+                <EditModal/>
+                {/* <div>
+                    Hovered key: {hoveredKey}
+                </div> */}
+
+                <Flex gap={"middle"} align='center'>
+                    <Typography.Text strong>Dark Mode</Typography.Text>
+                    <Switch defaultChecked onChange={console.log("clicked")} checkedChildren={<SunOutlined/>} unCheckedChildren={<MoonFilled/>}/>
+                </Flex>
         </>
     )
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext } from 'react';
-import { Drawer, Layout, Menu, theme, Button, Typography } from 'antd';
+import { BrowserRouter as Router, Route, Routes, Outlet } from 'react-router-dom';
+import { Drawer, Layout, Menu, theme, Button, Typography, ConfigProvider } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 import './index.css';
@@ -7,17 +8,15 @@ import Sidebar from '../Sidebar/Sidebar';
 import AppHeader from '../Header';
 import AppContent from '../AppContent';
 
-import Test from '../helper/test';
+import Home from '../Pages/Home';
+import Settings from '../Pages/Settings/Settings';
+
 export const MobileContext = createContext();
 
 const App = () => {
-  
-  // const {
-  //   token: { colorBgContainer, borderRadiusLG },
-  // } = theme.useToken();
-
   const [open, setOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState("light");
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const {Title} = Typography;
 
@@ -53,36 +52,35 @@ const App = () => {
   }
 
   return (
-
-    <MobileContext.Provider value={ {isMobile, drawerOpen, setDrawerOpen} }>
-      <Layout style={{ minHeight: "calc(100vh - 64px)" }}>
-
-
-            {isMobile ? 
-            <Drawer 
-              open={drawerOpen} 
-              onClose={ closeDrawer } 
-              placement='left' 
-              width={"75%"} 
-              title={<DrawerHeader/>} 
-              styles={{ 
-                body: { 
-                  padding: 0, 
-                  }
-                }}>
-              <Sidebar style={{ overflow: 'auto', height: '100vh', position: 'fixed' }} closeDrawer={setDrawerOpen} />
-            </Drawer> : 
-              <Sidebar/>
-            }
-
+    <ConfigProvider>
+      <MobileContext.Provider value={ {isMobile, drawerOpen, setDrawerOpen} }>
         <Layout style={{ minHeight: "calc(100vh - 64px)" }}>
-            <AppHeader isMobile={isMobile} openDrawer={openDrawer}/>
+              {isMobile ? 
+              <Drawer 
+                open={drawerOpen} 
+                onClose={ closeDrawer } 
+                placement='left' 
+                width={"75%"} 
+                title={<DrawerHeader/>} 
+                styles={{ 
+                  body: { 
+                    padding: 0, 
+                    }
+                  }}>
+                <Sidebar style={{ overflow: 'auto', height: '100vh', position: 'fixed' }} closeDrawer={setDrawerOpen} />
+              </Drawer> : 
+                <Sidebar/>
+              }
 
-            <AppContent />
+          <Layout style={{ minHeight: "calc(100vh - 64px)" }}>
+              <AppHeader isMobile={isMobile} openDrawer={openDrawer}/>
+
+              <AppContent/>
+
+          </Layout>
         </Layout>
-      </Layout>
-    </MobileContext.Provider>
-    // <Test />
+      </MobileContext.Provider>
+    </ConfigProvider>
   );
 };
 export default App;
