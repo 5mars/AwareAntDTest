@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import { Drawer, Layout, Menu, theme, Button, App } from 'antd';
 import {MenuOutlined } from '@ant-design/icons';
 
-const headerItems = ['1', '2', '3'].map((key) => ({
+const headerItems = ['1'].map((key) => ({
     key,
-    label: <Link to={`/${key}`}>Nav {key}</Link>,
+    label: <Link to={`/login`}>Login Page</Link>,
   }));
+
 
 const { Header } = Layout;
 

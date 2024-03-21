@@ -4,7 +4,8 @@ import {
   RouterProvider,
   createRoutesFromElements,
   Route,
-  useParams
+  useParams,
+  Routes
 } from "react-router-dom";
 import ReactDOM from 'react-dom/client'
 import App from './App/App.jsx'
@@ -18,14 +19,15 @@ import Insights from './Pages/Insights.jsx';
 import MissionPage from './Pages/MissionPage.jsx';
 
 const router = createBrowserRouter(createRoutesFromElements(
-  <Route path='/' element={<App/>}>
-    <Route path='settings' element={<Settings/>}/>
-    <Route path='insights' element={<Insights/>}/>
-    <Route path='home' element={<Home/>}/>
-    <Route path='*' element={<PageNotFound/>}/>
-    <Route path='login' element={<Login/>}/>
-    <Route path='/missions/:missionId' element={<MissionPage/>}/>
-  </Route>
+    <Route path='/' element={<App/>}>
+      <Route path='settings' element={<Settings/>}/>
+      <Route path='insights' element={<Insights/>}/>
+      <Route path='home' element={<Home/>}/>
+      <Route path='*' element={<PageNotFound/>}/>
+      <Route path='login' element={<Login/>}/>
+      <Route path='missions/:missionId' element={<MissionPage/>}/>
+      <Route path='/login' element={<Login/>}/>
+    </Route>
 ))
 
 ReactDOM.createRoot(document.getElementById('root')).render(

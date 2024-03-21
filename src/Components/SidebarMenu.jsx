@@ -118,7 +118,6 @@ const handleDeleteClick = (key) => {
         setModalOpen(true);
     }
 
-
     const onOk = () => {
         const values = form.getFieldsValue();
         messageApi.success('Item edited!');
