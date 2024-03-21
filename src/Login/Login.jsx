@@ -13,7 +13,9 @@ import {
     ExclamationCircleFilled,
     LockOutlined, 
     EyeInvisibleOutlined, 
-    EyeTwoTone 
+    EyeTwoTone,
+    AppleFilled,
+    GoogleCircleFilled 
 } from '@ant-design/icons';
 import { MobileContext } from "../App/App.jsx";
 import "./LoginStyle.css"
@@ -44,7 +46,7 @@ const Login = () => {
                             }}
                             onFinish={onFinish}
                             >
-                            {/* <Flex vertical> */}
+                                
                                 <Form.Item
                                     name="username"
                                     rules={[
@@ -77,8 +79,17 @@ const Login = () => {
                                     placeholder="Password"
                                     />
                                 </Form.Item>
-                            {/* </Flex> */}
 
+                                <Flex align="center" gap={"small"} style={{maxWidth: "40%"}}>
+                                    <Divider/>
+                                    <p style={{color: "gray"}}>or</p>
+                                    <Divider/>
+                                </Flex>
+
+                                <Flex align="center" justify="center" gap={"small"}>
+                                    <Button block icon={<AppleFilled/>}/>
+                                    <Button block icon={<GoogleCircleFilled/>}/>
+                                </Flex>
 
                                 <Form.Item>
                                     <Flex align="center" justify="space-between">
@@ -89,7 +100,6 @@ const Login = () => {
                                         </Button>
                                     </Flex>
                                 </Form.Item>
-
                         </Form>
                     </Flex>
                 </Flex>
