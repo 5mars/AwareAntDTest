@@ -18,17 +18,23 @@ import Settings from './Pages/Settings/Settings.jsx';
 import Insights from './Pages/Insights.jsx';
 import MissionPage from './Pages/MissionPage.jsx';
 
-const router = createBrowserRouter(createRoutesFromElements(
-    <Route path='/' element={<App/>}>
-      <Route path='settings' element={<Settings/>}/>
-      <Route path='insights' element={<Insights/>}/>
-      <Route path='home' element={<Home/>}/>
-      <Route path='*' element={<PageNotFound/>}/>
-      <Route path='login' element={<Login/>}/>
-      <Route path='missions/:missionId' element={<MissionPage/>}/>
-      <Route path='/login' element={<Login/>}/>
-    </Route>
-))
+
+const router = createBrowserRouter([
+{
+  path: '/',
+  element: <App/>,
+  children: [
+    { path: 'settings', element: <Settings/> },
+    { path: 'insights', element: <Insights/> },
+    { path: 'home', element: <Home/> },
+    { path: 'missions/:missionId', element: <MissionPage/> },
+    { path: '*', element: <PageNotFound/> }
+  ]
+}, {
+  path: 'login',
+  element: <Login/>
+}
+])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <ConfigProvider
@@ -51,9 +57,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 >
     <React.StrictMode>
       <RouterProvider router={router}/>
-      {/* <App /> */}
-      {/* <Test /> */}
-      {/* <Login /> */}
     </React.StrictMode>
   </ConfigProvider>
 )

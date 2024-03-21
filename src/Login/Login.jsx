@@ -19,8 +19,9 @@ import {
 } from '@ant-design/icons';
 import { MobileContext } from "../App/App.jsx";
 import "./LoginStyle.css"
-import Link from "antd/es/typography/Link.js";
+// import Link from "antd/es/typography/Link.js";
 import Logo from "../AWW.png"
+import { Link } from "react-router-dom";
 
 const Login = () => {
     const onFinish = (values) => {
@@ -96,7 +97,7 @@ const Login = () => {
                                         <Link href="" style={{fontWeight: "500", fontSize: "12px"}}>Create an account</Link>
 
                                         <Button type="primary" htmlType="submit" style={{ width: "30%"}}>
-                                        Log in
+                                        <Link to={"/"}>Log in</Link>
                                         </Button>
                                     </Flex>
                                 </Form.Item>
